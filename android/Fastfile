@@ -1,0 +1,10 @@
+lane :beta do
+  gradle(task: 'assemble', build_type: 'Release')
+  upload_to_play_store(track: 'beta')
+  #slack(message: 'Successfully distributed a new beta build')
+end
+
+lane :screenshots do
+  capture_android_screenshots
+  upload_to_play_store
+end
