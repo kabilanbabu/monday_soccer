@@ -3,9 +3,9 @@
 A Flutter app for the Singapore Swiss Club Monday Soccer group. 
 
 ## Download official apps
-<a href="https://apps.apple.com/us/app/swiss-club-monday-soccer/id1512167771?mt=8"> <img alt='Download in Appstore' src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-06-16&kind=iossoftware&bubble=ios_apps'/>
+<a href="https://apps.apple.com/us/app/swiss-club-monday-soccer/id1512167771?mt=8"> <img alt='Download in Appstore' src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-06-16&kind=iossoftware&bubble=ios_apps' width=145/>
 </a>
-<a href='https://play.google.com/store/apps/details?id=com.holmesnine.monday_soccer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/>
+<a href='https://play.google.com/store/apps/details?id=com.holmesnine.monday_soccer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=145/>
 </a>
 
 Features:
