@@ -28,5 +28,3 @@ Furthermore, the app utilizes a google sheet web app. The code of this web app i
 
 written by andreas.kalkum@gmail.com
 
-# monday_soccer
-# monday_soccer
