@@ -622,75 +622,75 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget gameDay() {
-  final gameDay = nextGameDay();
-  final daysUntil = daysUntilGameDay();
-  String daysUntilText;
-  daysUntil == 1 ? daysUntilText = 'Day Until' : daysUntilText = 'Days Until';
-  String playersText = 'Players Signed Up';
-  if (totalPlayers != '') {
-    int.parse(totalPlayers) == 1 ? playersText = 'Player Signed Up': playersText = 'Players Signed Up';
-  }
-  return new Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children:<Widget>[
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    final gameDay = nextGameDay();
+    final daysUntil = daysUntilGameDay();
+    String daysUntilText;
+    daysUntil == 1 ? daysUntilText = 'Day Until' : daysUntilText = 'Days Until';
+    String playersText = 'Players Signed Up';
+    if (totalPlayers != '') {
+      int.parse(totalPlayers) == 1 ? playersText = 'Player Signed Up': playersText = 'Players Signed Up';
+    }
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children:<Widget>[
-      Text(
-          gameDay.substring(0,6),
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline1
-        ),
-        
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:<Widget>[
         Text(
-          'Next Game Day',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText2
-        )
-      ],),
-      Container(
-        width: 2,
-        height: 24,
-        color: Color(0xff717374),
-        
-      ),Column(children:<Widget>[
-        Text(
-        '$daysUntil',
-        textAlign: TextAlign.center,
-        style: daysUntil == 0 ? Theme.of(context).textTheme.headline6 : Theme.of(context).textTheme.headline1
-      ),
-      Text(
-        '$daysUntilText',
-        textAlign: TextAlign.center,
-        style:Theme.of(context).textTheme.bodyText2
-      )],),
-      Container(
-        width: 2,
-        height: 24,
-        color: Color(0xff717374),
-        
-      ),
-      GestureDetector(
-        onTap: () { 
-          _refreshState();
-        },
-        child: 
-          Column(children:<Widget>[
-            totalPlayers == '' ? 
-            SpinKitThreeBounce(color: Color(0xff717374), size: 25)
-            : Text(
-            '$totalPlayers',
+            gameDay.substring(0,6),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline1
           ),
-        
+          
           Text(
-            '$playersText',
+            'Next Game Day',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText2
-          )]),
+          )
+        ],),
+        Container(
+          width: 2,
+          height: 24,
+          color: Color(0xff717374),
+          
+        ),Column(children:<Widget>[
+          Text(
+          '$daysUntil',
+          textAlign: TextAlign.center,
+          style: daysUntil == 0 ? Theme.of(context).textTheme.headline6 : Theme.of(context).textTheme.headline1
+        ),
+        Text(
+          '$daysUntilText',
+          textAlign: TextAlign.center,
+          style:Theme.of(context).textTheme.bodyText2
+        )],),
+        Container(
+          width: 2,
+          height: 24,
+          color: Color(0xff717374),
+          
+        ),
+        GestureDetector(
+          onTap: () { 
+            _refreshState();
+          },
+          child: 
+            Column(children:<Widget>[
+              totalPlayers == '' ? 
+              SpinKitThreeBounce(color: Color(0xff717374), size: 25)
+              : Text(
+              '$totalPlayers',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline1
+            ),
+          
+            Text(
+              '$playersText',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyText2
+            )]),
       )],
     );  
   }

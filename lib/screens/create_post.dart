@@ -74,10 +74,10 @@ class _CreatePostPage extends State<CreatePostPage> {
     Map <String, dynamic> postMap = postData.toJson();
     postMap['author'] = postMap['author'].toJson();  // transform author from UserModel
 
-    /*postMap['comments'] = postMap['comments'].map((comment) => comment.toJson()).toList(); // transform Comment from CommentModel
-    for (int i=0; i < postMap['comments'].length; i++) { // transform user within each comment to map
-      postMap['comments'][i]['user'] = postMap['comments'][i]['user'].toJson();
-    }*/
+    // postMap['comments'] = postMap['comments'].map((comment) => comment.toJson()).toList(); // transform Comment from CommentModel
+    // for (int i=0; i < postMap['comments'].length; i++) { // transform user within each comment to map
+    //   postMap['comments'][i]['user'] = postMap['comments'][i]['user'].toJson();
+    // }
 
     final fcm = PushNotificationsManager(); 
 
@@ -174,7 +174,6 @@ class _CreatePostPage extends State<CreatePostPage> {
   }
 
   Widget _nonImageContents(){
-
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: Column(
@@ -191,38 +190,38 @@ class _CreatePostPage extends State<CreatePostPage> {
 
   Widget _bannerImage() {                  
      return new Stack(fit: StackFit.loose, children: <Widget>[
-                        new Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Container(
-                                width: 200.0,
-                                height: 200.0,
-                                child: new Image(
-                                    image: _showPostBanner(),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                          ],
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(top: 180.0, right: 0.0),
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new CircleAvatar(
-                                  backgroundColor: Colors.red,
-                                  radius: 25.0,
-                                  child:                                   
-                                    new IconButton(
-                                    icon: Icon(Icons.camera_alt),
-                                    color: Colors.white,
-                                    onPressed: _navToTakePicture
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ]);
+        new Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Container(
+                width: 200.0,
+                height: 200.0,
+                child: new Image(
+                    image: _showPostBanner(),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+          ],
+        ),
+        Padding(
+            padding: EdgeInsets.only(top: 180.0, right: 0.0),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 25.0,
+                  child:                                   
+                    new IconButton(
+                    icon: Icon(Icons.camera_alt),
+                    color: Colors.white,
+                    onPressed: _navToTakePicture
+                  ),
+                ),
+              ],
+            )),
+      ]);
   }
   
   Widget _title() {
