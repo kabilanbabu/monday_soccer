@@ -10,21 +10,22 @@ class WalkthroughScreen extends StatefulWidget {
   final SharedPreferences prefs;
   
   final List<Walkthrough> pages = [
-  Walkthrough(
-      image: Image.asset('assets/swiss_club_logo.png'),
-      title: "Welcome to the\nSwiss Club Monday Social Soccer App",
-      description:
-          "Your one stop shop to signing up for game nights, see recent announcements and connect to other players.\n\n"
-          "Please note this app is only for members of the Singapore Swiss Club Monday Night Soccer group.\n\n"
-          "If you'd like to join, please reach out to andreas.kalkum@gmail.com",
+    Walkthrough(
+        image: Image.asset('assets/swiss_club_logo.png'),
+        title: "Welcome to the\nSwiss Club Monday Social Soccer App",
+        description:
+            "Your one stop shop to signing up for game nights, see recent announcements and connect to other players.\n\n"
+            "Please note this app is only for members of the Singapore Swiss Club Monday Night Soccer group.\n\n"
+            "If you'd like to join, please reach out to andreas.kalkum@gmail.com",
     ),
-  Walkthrough(
-    icon: Icons.account_circle,
-    title: "Let's get you settled",
-    description:
-        "The next pages help you to create a new user or sign in & set up your player profile.\n\n"
-        "Please use the email address that you are currently receiving the soccer invitations.",
-  ),
+    Walkthrough(
+      icon: Icons.account_circle,
+      title: "Let's get you settled",
+      description:
+          "The next pages help you to create a new user or sign in & set up your player profile.\n\n"
+          "Please use the email address that you are currently receiving the soccer invitations.\n\n"
+          "If this is your first time using this app, set your own password and click \"create user\".",
+    ),
   ];
 
   WalkthroughScreen({this.prefs});

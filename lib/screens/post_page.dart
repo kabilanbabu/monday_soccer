@@ -172,44 +172,73 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
-  Widget _addComment() {
+  Widget _addComment() {    
+    final roundedContainer = ClipRRect(
+      borderRadius: BorderRadius.circular(20.0),
+      child: Container(
+        color: Colors.grey[300],
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Form(
+              key: _commentFormKey,
+              child: Stack(    
+                children: <Widget> [
+                  Padding(
+                  padding: EdgeInsets.only(right: 8.0, left: 8.0),
+                    child: TextFormField(
+                    controller: commentController,
+                    //maxLength: 100,
+                    validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                        },
+                    //onEditingComplete: _saveComment,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Type your comment',
+                    ),
+                    ),
+                  ),
+                  ]
+                ),
+              )
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final inputBar = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: roundedContainer,
+          ),
+          SizedBox(
+            width: 5.0,
+          ),
+          CircleAvatar(
+            backgroundColor: Colors.green,
+            child: IconButton(
+            icon: Icon(Icons.send, color: Colors.white, size: 26.0),
+            onPressed: () {
+              if (_commentFormKey.currentState.validate()) {
+              _saveComment();
+            }},
+            )
+            ),
+        ],
+      ),
+    );    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Form(
-      key: _commentFormKey,
-      child: Stack(    
-        children: <Widget> [
-          Padding(
-          padding: EdgeInsets.only(right: 55.0, left: 16.0),
-            child: TextFormField(
-            controller: commentController,
-            maxLength: 100,
-            validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-                },
-            //onEditingComplete: _saveComment,
-            decoration: InputDecoration(
-              hintText: 'Add your comment',
-            ),
-            ),
-          ),
-          Positioned(
-            right: 10.0,
-            top: 1.0,
-            child: IconButton(
-              icon: Icon(Icons.send, color: Colors.green, size: 28.0),
-              onPressed: () {
-                if (_commentFormKey.currentState.validate()) {
-                _saveComment();
-              }},
-              )
-          )
-        ]
-        ),
-      )
+      child: inputBar,
     );
   }
 

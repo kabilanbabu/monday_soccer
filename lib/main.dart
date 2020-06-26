@@ -16,14 +16,14 @@ void main() {
   Crashlytics.instance.enableInDevMode = true;
   SharedPreferences.getInstance().then((prefs) {
     runZoned(() {
-        runApp(MyApp(prefs: prefs));
+        runApp(MondaySoccer(prefs: prefs));
     }, onError: Crashlytics.instance.recordError);
   });
 }
 
-class MyApp extends StatelessWidget {
+class MondaySoccer extends StatelessWidget {
   final SharedPreferences prefs;
-  MyApp({this.prefs});
+  MondaySoccer({this.prefs});
   
  
   @override

@@ -95,6 +95,7 @@ android/key.properties
 android/app/key.jks
 android/api-5155568427703415748-494663-b5252d0b10e2.json
 *.cer
+**/*.cer
 lib/firebase/functions/package-lock.json
 **/*.plist
 **/google-services.json
@@ -105,3 +106,4 @@ lib/firebase/*
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+flutter_01.png
