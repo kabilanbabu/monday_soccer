@@ -266,6 +266,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               showPasswordInput(),
               showPrimaryButton(),
               showSecondaryButton(),
+              showPasswordReset(),
               showErrorMessage(),
             ],
           ),
@@ -352,7 +353,47 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             textAlign: TextAlign.center),
             padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
             
-        onPressed: toggleFormMode);
+        onPressed: toggleFormMode
+        );
+  }
+
+  Widget showPasswordReset() {
+    return new FlatButton(
+        child: new Text(
+            _isLoginForm ? 'Forgot your password? Click here to reset' : '',
+            style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: Colors.blueGrey),
+            textAlign: TextAlign.center),
+            padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+            
+        onPressed: () {
+          widget.auth.sendPasswordResetEmail(emailController.text);
+          _showPasswordResetDialog(emailController.text);
+        }
+        );
+  }
+
+  void _showPasswordResetDialog(String eMail) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Password reset"),
+          titleTextStyle: TextStyle(color: Colors.red[300], fontWeight: FontWeight.bold),
+          content: new Text("An email to reset your password has been sent to ${eMail.toLowerCase()}\n\n"
+                            "After reseting your password, log in again."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Dismiss"),
+              onPressed: () {
+                toggleFormMode();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget showPrimaryButton() {

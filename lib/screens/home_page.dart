@@ -18,7 +18,7 @@ import 'package:animations/animations.dart';
 import 'package:package_info/package_info.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../services/push_notifications.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 const double _fabDimension = 56.0;
@@ -72,6 +72,8 @@ class _HomePageState extends State<HomePage> {
     version: 'Unknown',
     buildNumber: 'Unknown',
   );
+
+  final fcm = PushNotificationsManager(); 
 
   Map<String, Image> profileThumbs;
 
@@ -183,7 +185,6 @@ class _HomePageState extends State<HomePage> {
     var signUpParameters = "name=" + base64Url.encode(utf8.encode(firstName))
        + "&player=" + base64Url.encode(utf8.encode(KeyValues.enc(userEmail)))
        + "&inout=1&gameday=" + base64Url.encode(utf8.encode(_nextGameDay));
-    final fcm = PushNotificationsManager(); 
 
     CommToSheet signUp = CommToSheet( // paramters for the webapp
       "subscribe",
@@ -384,19 +385,34 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  initUser() async {
+  _initUser() async {
     await getUserData().then((user) {
       userData = user;
       _lockNav = false;
       fullNameController.text = '${userData.firstName} ${userData.lastName}';
     });
+    _saveDeviceToken();
+  }
+
+  void _saveDeviceToken() {
+    String deviceToken;
+    SharedPreferences.getInstance().then((prefs) {
+      deviceToken = prefs.getString('deviceToken');
+      Firestore.instance
+      .collection('users')
+      .document(userData.id)
+      .updateData({
+        'deviceToken': deviceToken, 
+      });
+    });
   }
 
   @override
     void initState() {
-      initUser();
-      _requestUserInfofromSheet(); //show user data right away
-      _requestStatusfromSheet(nextGameDay()); // save number of total players
+      fcm.init();
+      _initUser();
+      _requestUserInfofromSheet();
+      _requestStatusfromSheet(nextGameDay());
       _initPackageInfo();
        // allow Navigation to news after all data has been loaded only
       super.initState();

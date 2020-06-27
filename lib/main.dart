@@ -5,14 +5,11 @@ import 'root_page.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/onboarding_walkthrough.dart';
-import 'services/push_notifications.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final fcm = PushNotificationsManager();
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
-  fcm.init();
   Crashlytics.instance.enableInDevMode = true;
   SharedPreferences.getInstance().then((prefs) {
     runZoned(() {
@@ -28,7 +25,7 @@ class MondaySoccer extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    //prefs.setBool('accessed_before', false); // only for debbugging the onboarding flow
+    // prefs.setBool('accessed_before', false); // only for debbugging the onboarding flow
     return MaterialApp( 
       title: 'Monday Soccer',
       debugShowCheckedModeBanner: false,

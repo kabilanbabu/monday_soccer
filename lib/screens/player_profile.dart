@@ -97,7 +97,8 @@ class _ProfilePage extends State<ProfilePage> {
                 UserModel gUserData = UserModel(
                   firstName: _firstName,
                   lastName: _lastName,
-                  id: user.uid
+                  id: user.uid,
+                  admin: false,
                 );
                 Firestore.instance.collection('users').document(gUserData.id).updateData(gUserData.toJson());
               });

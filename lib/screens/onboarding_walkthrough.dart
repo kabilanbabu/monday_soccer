@@ -22,9 +22,10 @@ class WalkthroughScreen extends StatefulWidget {
       icon: Icons.account_circle,
       title: "Let's get you settled",
       description:
-          "The next pages help you to create a new user or sign in & set up your player profile.\n\n"
-          "Please use the email address that you are currently receiving the soccer invitations.\n\n"
-          "If this is your first time using this app, set your own password and click \"create user\".",
+          "The next pages help you to create a new user for this app & set up your player profile or sign in with a previously created user.\n\n"
+          "Please use the email address that you have been receiving soccer invitations with. "
+          "If you want to use a different email address, you will need to contact the admins first.\n\n"
+          "If this is your first time using this app, type in the email address and a new password and click \"create user\".",
     ),
   ];
 
@@ -122,7 +123,7 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Text(
                   page.description,
                   softWrap: true,

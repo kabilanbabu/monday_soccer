@@ -12,7 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../services/push_notifications.dart';
 
 class PostPage extends StatefulWidget {
-  const PostPage({Key key, @required this.postData, this.userData, this.documentID}) : super(key: key);
+  const PostPage({Key key, @required this.postData, @required this.userData, @required this.documentID}) : super(key: key);
 
   final PostModel postData;
   final UserModel userData;
@@ -84,7 +84,7 @@ class _PostPageState extends State<PostPage> {
 
   @override
   void initState() {
-    var admin = widget.userData.admin;
+    var admin = widget.userData.admin ?? false;
     if (widget.postData.author.id == widget.userData.id || admin) {
       _hasDeleteRight = true;
      }

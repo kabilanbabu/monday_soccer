@@ -51,6 +51,7 @@ dependencies:
   flutter_native_image: ^0.0.5+2
   flutter_spinkit: ^4.1.2+1
   flutter_app_badger: ^1.1.2
+  flutter_local_notifications: ^1.4.4+1
 
 dev_dependencies:
   flutter_test:

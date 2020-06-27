@@ -2,8 +2,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import '../services/keys.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
 //   print('Background message');
@@ -33,13 +36,69 @@ class PushNotificationsManager {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging(); 
   bool _initialized = false;
 
+  static FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  _initLocalNotifications() {
+    var initializationSettingsAndroid = new AndroidInitializationSettings('@mipmap/ic_logo_push');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
+    _flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  static Future _showNotification(Map<String, dynamic> message) async {
+    var pushTitle;
+    var pushText;
+    //var action;
+
+    if (Platform.isAndroid) {
+      var nodeData = message['data'];
+      pushTitle = nodeData['title'];
+      pushText = nodeData['body'];
+      //action = nodeData['action'];
+    } else {
+      pushTitle = message['notification']['title'];
+      pushText = message['notification']['body'];
+      //action = message['action'];
+    }
+    print("AppPushs params pushTitle : $pushTitle");
+    print("AppPushs params pushText : $pushText");
+    //print("AppPushs params pushAction : $action");
+
+    // @formatter:off
+    var platformChannelSpecificsAndroid = new AndroidNotificationDetails(
+        'your channel id',
+        'your channel name',
+        'your channel description',
+        playSound: false,
+        enableVibration: false,
+        importance: Importance.Max,
+        priority: Priority.High);
+    // @formatter:on
+    var platformChannelSpecificsIos = new IOSNotificationDetails(presentSound: false);
+    var platformChannelSpecifics = new NotificationDetails(platformChannelSpecificsAndroid, platformChannelSpecificsIos);
+
+    new Future.delayed(Duration.zero, () {
+      _flutterLocalNotificationsPlugin.show(
+        0,
+        pushTitle,
+        pushText,
+        platformChannelSpecifics,
+        payload: 'No_Sound',
+      );
+    });
+  }
+
   Future<void> init() async {
     if (!_initialized) {
+      _initLocalNotifications();
       // For iOS request permission first.
       firebaseMessaging.requestNotificationPermissions();
       firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
+          _showNotification(message);
           print("onMessage: $message");
+          var toast = message.values.iterator.current;
+          print(toast);
+ 
         },
 
        // onBackgroundMessage: myBackgroundMessageHandler, // not working reliably yet
@@ -58,7 +117,9 @@ class PushNotificationsManager {
       // For testing purposes print the Firebase Messaging token
       String token = await firebaseMessaging.getToken();
       print("FirebaseMessaging token: $token");
-      
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.setString('deviceToken', token);
+      });
       _initialized = true;
     }
   }
