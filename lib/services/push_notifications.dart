@@ -18,29 +18,31 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
   
 //   if (message.containsKey('notification')) {
 //     // Handle notification message
+//     PushNotificationsManager._showNotification(message);
 //     final dynamic notification = message['notification'];
 //     print(notification);
 //   }
-//   //FlutterAppBadger.updateBadgeCount(1);
+//   FlutterAppBadger.updateBadgeCount(1);
 //   return Future<void>.value();
 // }
 
 class PushNotificationsManager {
 
-  // PushNotificationsManager._();
+  PushNotificationsManager._();
 
-  // factory PushNotificationsManager() => _instance;
+  factory PushNotificationsManager() => _instance;
 
-  // static final PushNotificationsManager _instance = PushNotificationsManager._();
+  static final PushNotificationsManager _instance = PushNotificationsManager._();
 
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging(); 
   bool _initialized = false;
 
   static FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   _initLocalNotifications() {
-    var initializationSettingsAndroid = new AndroidInitializationSettings('@mipmap/ic_logo_push');
+    var initializationSettingsAndroid = new AndroidInitializationSettings('swissclubsoccer');
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
+    
     _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
@@ -50,13 +52,13 @@ class PushNotificationsManager {
     //var action;
 
     if (Platform.isAndroid) {
-      var nodeData = message['data'];
+      var nodeData = message['notification'];
       pushTitle = nodeData['title'];
       pushText = nodeData['body'];
       //action = nodeData['action'];
     } else {
-      pushTitle = message['notification']['title'];
-      pushText = message['notification']['body'];
+      pushTitle = message['aps']['alert']['title'];
+      pushText = message['aps']['alert']['body'];
       //action = message['action'];
     }
     print("AppPushs params pushTitle : $pushTitle");
@@ -65,9 +67,9 @@ class PushNotificationsManager {
 
     // @formatter:off
     var platformChannelSpecificsAndroid = new AndroidNotificationDetails(
-        'your channel id',
-        'your channel name',
-        'your channel description',
+        'mondaysoccer',
+        'Monday Soccer',
+        'Monday Soccer',
         playSound: false,
         enableVibration: false,
         importance: Importance.Max,
@@ -89,20 +91,15 @@ class PushNotificationsManager {
 
   Future<void> init() async {
     if (!_initialized) {
-      _initLocalNotifications();
       // For iOS request permission first.
       firebaseMessaging.requestNotificationPermissions();
+      _initLocalNotifications();
       firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
           _showNotification(message);
           print("onMessage: $message");
-          var toast = message.values.iterator.current;
-          print(toast);
- 
         },
-
-       // onBackgroundMessage: myBackgroundMessageHandler, // not working reliably yet
-        
+        // onBackgroundMessage: Platform.isIOS ? null : myBackgroundMessageHandler,
         onLaunch: (Map<String, dynamic> message) async {
           print("onLaunch: $message");
           FlutterAppBadger.removeBadge();
@@ -152,7 +149,7 @@ class PushNotificationsManager {
           'body': body,
           'title': title,
           'badge': 1,  
-          //'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
         },
         'priority': 'high',
         'data': <String, dynamic>{
@@ -171,7 +168,9 @@ class PushNotificationsManager {
 
     firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
+        _showNotification(message);
         completer.complete(message);
+        print("onMessage: $message");
       },
     );
 

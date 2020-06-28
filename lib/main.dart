@@ -6,11 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/onboarding_walkthrough.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'services/push_notifications.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   Crashlytics.instance.enableInDevMode = true;
+  final fcm = PushNotificationsManager();
+  fcm.init();
   SharedPreferences.getInstance().then((prefs) {
     runZoned(() {
         runApp(MondaySoccer(prefs: prefs));

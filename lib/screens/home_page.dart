@@ -351,12 +351,7 @@ class _HomePageState extends State<HomePage> {
                 text: 'Swiss Club Monday Soccer \n'
                       'Your one stop shop to signing up for game nights, '
                       'see recent announcements and connect to other players. \n'
-                      'Please note this app is only for members of the Singapore Swiss Club Monday Night Soccer group. '
-                      'If you\'d like to join, please reach out to '),
-            TextSpan(
-                style: textStyle.copyWith(color: Theme.of(context).accentColor),
-                text: 'andreas.kalkum@gmail.com'),
-            TextSpan(style: textStyle, text: '.'),
+            )
           ],
         ),
       ),
@@ -409,7 +404,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
     void initState() {
-      fcm.init();
       _initUser();
       _requestUserInfofromSheet();
       _requestStatusfromSheet(nextGameDay());
