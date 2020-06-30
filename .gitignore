@@ -107,3 +107,4 @@ lib/firebase/*
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 flutter_01.png
+web/index.html
