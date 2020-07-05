@@ -8,23 +8,23 @@ import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-// Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
-//   print('Background message');
-//   if (message.containsKey('data')) {
-//     // Handle data message
-//     final dynamic data = message['data'];
-//     print(data);
-//   }
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  print('Background message');
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+    print(data);
+  }
   
-//   if (message.containsKey('notification')) {
-//     // Handle notification message
-//     PushNotificationsManager._showNotification(message);
-//     final dynamic notification = message['notification'];
-//     print(notification);
-//   }
-//   FlutterAppBadger.updateBadgeCount(1);
-//   return Future<void>.value();
-// }
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    PushNotificationsManager._showNotification(message);
+    final dynamic notification = message['notification'];
+    print(notification);
+  }
+  FlutterAppBadger.updateBadgeCount(1);
+  return Future<void>.value();
+}
 
 class PushNotificationsManager {
 
@@ -99,7 +99,7 @@ class PushNotificationsManager {
           _showNotification(message);
           print("onMessage: $message");
         },
-        // onBackgroundMessage: Platform.isIOS ? null : myBackgroundMessageHandler,
+        onBackgroundMessage: Platform.isIOS ? null : myBackgroundMessageHandler,
         onLaunch: (Map<String, dynamic> message) async {
           print("onLaunch: $message");
           FlutterAppBadger.removeBadge();

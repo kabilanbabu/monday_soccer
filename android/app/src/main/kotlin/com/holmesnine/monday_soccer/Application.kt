@@ -1,4 +1,4 @@
-package com.holmesnine.monday_soccer;
+package com.holmesnine.monday_soccer
 
 import io.flutter.app.FlutterApplication
 import io.flutter.plugin.common.PluginRegistry
